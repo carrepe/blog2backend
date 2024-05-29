@@ -1,0 +1,13 @@
+# Node.js 관련
+node_modules/
+npm-debug.log
+
+# MongoDB 관련
+*.lock
+
+# multer 관련
+uploads/
+
+# 개발 환경 관련
+*.env
+.DS_Store
