@@ -70,9 +70,6 @@ app.post('/login', async (req, res) => {
         if (err) throw err;
         res
           .cookie('token', token, {
-            //쿠키를 설정할 도메인과 경로
-            path: '/',
-            domain: 'https://blog2test.netlify.app',
             sameSite: 'None',
             secure: true,
           })
