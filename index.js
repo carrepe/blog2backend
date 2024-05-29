@@ -62,18 +62,26 @@ app.post('/login', async (req, res) => {
 
   const passOK = bcrypt.compareSync(password, userDoc.password);
   if (passOK) {
-    jwt.sign({ username, id: userDoc._id }, jwtSecret, {}, (err, token) => {
-      if (err) throw err;
-      res
-        .cookie('token', token, {
-          sameSite: 'None',
-          secure: true,
-        })
-        .json({
-          id: userDoc._id,
-          username,
-        });
-    });
+    jwt.sign(
+      { username, id: userDoc._id },
+      jwtSecret,
+      { expiresIn: '1d' },
+      (err, token) => {
+        if (err) throw err;
+        res
+          .cookie('token', token, {
+            //쿠키를 설정할 도메인과 경로
+            path: '/',
+            domain: 'https://blog2test.netlify.app',
+            sameSite: 'None',
+            secure: true,
+          })
+          .json({
+            id: userDoc._id,
+            username,
+          });
+      }
+    );
   } else {
     res.json({ message: 'failed' });
   }
